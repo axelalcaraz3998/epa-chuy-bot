@@ -1,5 +1,11 @@
 const dotenv = require("dotenv");
-const { Client, Events, IntentsBitField } = require("discord.js");
+const {
+  Client,
+  Events,
+  IntentsBitField,
+  ActivityType,
+  PresenceUpdateStatus,
+} = require("discord.js");
 
 const { textMessageCommands } = require("./commands/textCommands");
 
@@ -14,6 +20,15 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessages,
     IntentsBitField.Flags.MessageContent,
   ],
+  presence: {
+    activities: [
+      {
+        name: "Topando pomo 🍻",
+        type: ActivityType.Playing,
+      },
+    ],
+  },
+  status: PresenceUpdateStatus.Online,
 });
 
 // Log when the bot is ready
