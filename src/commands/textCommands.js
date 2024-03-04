@@ -14,6 +14,11 @@ function textMessageCommands(message) {
   // Trim the message content
   const messageTrimmed = message.content.trim();
 
+  // Ignore message if it does not start with the command prefix
+  if (!messageTrimmed.startsWith("chuy!")) {
+    return;
+  }
+
   // Replies to a message with "Epa [username], topas pomo?"
   if (messageTrimmed === "chuy!epa") {
     message.channel.send(`Epa ${message.author.username}, topas pomo?`);
@@ -26,22 +31,20 @@ function textMessageCommands(message) {
       message.channel.send(
         "Tienes que escribir `chuy!gamePicker` seguido de una lista de juegos separados por comas. Por ejemplo: `chuy!gamePicker juego1, juego2, juego3`"
       );
-
       return;
     }
 
     // Split the message content by commas and remove the command
-    const arrayOfGames = message.content
+    const arrayOfGames = messageTrimmed
       .replace("chuy!gamePicker", "")
       .split(",");
 
-    let randomGame = "";
     if (arrayOfGames.length === 1) {
-      randomGame = `el único juego que pusiste ${message.author.username}. ¿Tu estás pendejo o qué?`;
-    } else {
-      randomGame = chooseRandomOptionFromArray(arrayOfGames).trim();
+      message.channel.send("¿Tu estás pendejo o qué?");
+      return;
     }
 
+    const randomGame = chooseRandomOptionFromArray(arrayOfGames).trim();
     message.channel.send(`Vamos a jugar ${randomGame}`);
   }
 }
