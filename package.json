@@ -1,0 +1,20 @@
+{
+  "name": "epa-chuy-bot",
+  "version": "1.0.0",
+  "description": "Epa Chuy Bot for Discord",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "klepzs",
+  "license": "ISC",
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}
