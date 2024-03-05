@@ -9,7 +9,12 @@ function chooseRandomOptionFromArray(array) {
   return randomChoice;
 }
 
+function trimMessage(message) {
+  return message.trim();
+}
+
 module.exports = {
   getRandomInt,
   chooseRandomOptionFromArray,
+  trimMessage,
 };

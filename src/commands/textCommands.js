@@ -1,12 +1,13 @@
-const { chooseRandomOptionFromArray } = require("./../utils/utils");
+const {
+  chooseRandomOptionFromArray,
+  trimMessage,
+} = require("./../utils/utils");
+const { TENOR_API } = require("./../configs/api");
+const { getTenorGif } = require("./../services/getTenorGif");
 
 // Utilities
 function sendMessageToCurrentChannel(message, content) {
   message.channel.send(content);
-}
-
-function trimMessageContent(message) {
-  return message.content.trim();
 }
 
 // Functions for text message commands
@@ -21,7 +22,7 @@ function epa(message) {
 
 // Random game picker
 function gamePicker(message) {
-  const messageTrimmed = trimMessageContent(message);
+  const messageTrimmed = trimMessage(message.content);
 
   // If message does not contain a list of games, send a message with instructions and return
   if (messageTrimmed === "chuy!gamePicker") {
@@ -44,6 +45,24 @@ function gamePicker(message) {
   sendMessageToCurrentChannel(message, `Vamos a jugar ${randomGame} Chuy`);
 }
 
+async function gif(message) {
+  const messageTrimmed = trimMessage(message.content);
+
+  // If no query is provided, send a random fortnite default dance gif
+  if (messageTrimmed === "chuy!gif") {
+    const gifURL = await getTenorGif("fortnite default dance");
+
+    sendMessageToCurrentChannel(message, gifURL);
+    return;
+  }
+
+  // Split the message content by spaces and remove the command
+  const queryMsg = messageTrimmed.replace("chuy!gif", "").trim();
+  const gifURL = await getTenorGif(queryMsg);
+
+  sendMessageToCurrentChannel(message, gifURL);
+}
+
 /*
   List of commands:
   - chuy!epa
@@ -56,7 +75,7 @@ function textMessageCommands(message) {
   }
 
   // Trim the message content
-  const messageTrimmed = trimMessageContent(message);
+  const messageTrimmed = trimMessage(message.content);
 
   // Ignore message if it does not start with the command prefix
   if (!messageTrimmed.startsWith("chuy!")) {
@@ -69,6 +88,10 @@ function textMessageCommands(message) {
 
   if (messageTrimmed.startsWith("chuy!gamePicker")) {
     gamePicker(message);
+  }
+
+  if (messageTrimmed.startsWith("chuy!gif")) {
+    gif(message);
   }
 }
 
