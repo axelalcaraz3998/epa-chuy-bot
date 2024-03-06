@@ -2,7 +2,6 @@ const {
   chooseRandomOptionFromArray,
   trimMessage,
 } = require("./../utils/utils");
-const { TENOR_API } = require("./../configs/api");
 const { getTenorGif } = require("./../services/getTenorGif");
 
 // Utilities
@@ -50,7 +49,7 @@ async function gif(message) {
 
   // If no query is provided, send a random fortnite default dance gif
   if (messageTrimmed === "chuy!gif") {
-    const gifURL = await getTenorGif("fortnite default dance");
+    const gifURL = await getTenorGif("fortnite default dance cursed");
 
     sendMessageToCurrentChannel(message, gifURL);
     return;

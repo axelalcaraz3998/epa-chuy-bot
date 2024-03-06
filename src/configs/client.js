@@ -1,6 +1,7 @@
 const {
   Client,
   IntentsBitField,
+  GatewayIntentBits,
   ActivityType,
   PresenceUpdateStatus,
 } = require("discord.js");
@@ -12,6 +13,7 @@ const client = new Client({
     IntentsBitField.Flags.GuildMessages,
     IntentsBitField.Flags.MessageContent,
     IntentsBitField.Flags.GuildVoiceStates,
+    GatewayIntentBits.Guilds,
   ],
   presence: {
     activities: [
