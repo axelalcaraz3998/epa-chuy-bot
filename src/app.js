@@ -8,6 +8,7 @@ const { client } = require("./configs/client");
 const { textMessageCommands } = require("./commands/textCommands");
 const { slashCommands } = require("./commands/slashCommands");
 const { logger } = require("./services/logger");
+const { twitchCronJob } = require("./cronjobs/twitchCronJob");
 
 // Load environment variables
 dotenv.config();
@@ -60,6 +61,9 @@ client.on(Events.InteractionCreate, async (interaction) => {
 client.on(Events.VoiceStateUpdate, (oldState, newState) => {
   logger(client, oldState, newState);
 });
+
+// Run Twitch cron job
+twitchCronJob(client);
 
 // Log in to Discord
 client.login(process.env.DISCORD_TOKEN);

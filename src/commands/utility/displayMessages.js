@@ -1,6 +1,6 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { notificationMessages } = require("../../configs/notificationMessages");
-const { EVERYONE_ROLE_ID } = require("../../configs/config");
+const { NOTIFICATIONS_ROLE_ID } = require("../../configs/config");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -9,8 +9,8 @@ module.exports = {
 
   async execute(interaction) {
     await interaction.reply(
-      `<@&${EVERYONE_ROLE_ID}> ` +
-        notificationMessages.twitch +
+      `<@&${NOTIFICATIONS_ROLE_ID}> ` +
+        notificationMessages.youtube +
         "\n\n https://www.youtube.com/watch?v=ft5S8g7UvJ8"
     );
   },
