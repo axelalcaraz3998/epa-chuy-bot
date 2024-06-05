@@ -4,7 +4,7 @@ async function slashCommands(interaction) {
   }
 
   const command = interaction.client.commands.get(interaction.commandName);
-  console.log(interaction.client.commands);
+  // console.log(interaction.client.commands);
 
   if (!command) {
     console.log(`No command matching ${interaction.commandName} was found`);

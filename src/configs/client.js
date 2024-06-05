@@ -24,6 +24,10 @@ const client = new Client({
     ],
   },
   status: PresenceUpdateStatus.Online,
+  allowedMentions: {
+    parse: ["users", "roles", "everyone"],
+    repliedUser: true,
+  },
 });
 
 module.exports = {
