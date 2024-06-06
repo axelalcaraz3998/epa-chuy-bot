@@ -1,7 +1,6 @@
 async function getYoutubeVideos() {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-  // const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
-  const YOUTUBE_CHANNEL_ID = "UCHnyfMqiRRG1u-2MsSQLbXA";
+  const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 
   if (!YOUTUBE_API_KEY || !YOUTUBE_CHANNEL_ID) {
     throw new Error("Missing YouTube API key or channel ID.");
@@ -9,7 +8,7 @@ async function getYoutubeVideos() {
 
   const uploadsPlaylistId = await getChannelUploadsPlaylistId();
 
-  const tokenUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails&playlistId=${uploadsPlaylistId}&key=${YOUTUBE_API_KEY}`;
+  const tokenUrl = `https://www.googleapis.com/youtube/v3/playlistItems?part=contentDetails%2Csnippet&playlistId=${uploadsPlaylistId}&key=${YOUTUBE_API_KEY}`;
   const response = await fetch(tokenUrl, {
     headers: {
       Accept: "application/json",
@@ -21,7 +20,8 @@ async function getYoutubeVideos() {
   }
 
   const data = await response.json();
-  const videoId = data.items[0].contentDetails.videoId;
+
+  const videoId = data.items[1].contentDetails.videoId;
   const videoUrl = `https://www.youtube.com/watch?v=${videoId}`;
 
   return videoUrl;
@@ -29,8 +29,7 @@ async function getYoutubeVideos() {
 
 async function getChannelUploadsPlaylistId() {
   const YOUTUBE_API_KEY = process.env.YOUTUBE_API_KEY;
-  // const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
-  const YOUTUBE_CHANNEL_ID = "UCHnyfMqiRRG1u-2MsSQLbXA";
+  const YOUTUBE_CHANNEL_ID = process.env.YOUTUBE_CHANNEL_ID;
 
   if (!YOUTUBE_API_KEY || !YOUTUBE_CHANNEL_ID) {
     throw new Error("Missing YouTube API key or channel ID.");
