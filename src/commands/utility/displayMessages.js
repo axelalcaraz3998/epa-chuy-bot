@@ -9,9 +9,7 @@ module.exports = {
 
   async execute(interaction) {
     await interaction.reply(
-      `<@&${NOTIFICATIONS_ROLE_ID}> ` +
-        notificationMessages.youtube +
-        "\n\n https://www.youtube.com/watch?v=ft5S8g7UvJ8"
+      `<@&${NOTIFICATIONS_ROLE_ID}> ` + notificationMessages.youtube
     );
   },
 };
