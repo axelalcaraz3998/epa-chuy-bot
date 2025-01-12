@@ -2,8 +2,10 @@
   "name": "epa-chuy-bot",
   "version": "1.0.0",
   "description": "Epa Chuy Bot is a custom Discord bot built specifically for a private server. However, this repository is open source, and anyone can use it as a starting template for their own custom Discord bot!",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
+    "start": "node .",
+    "deployCommands": "node src/deploy-commands.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
