@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, userMention } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -6,9 +6,8 @@ module.exports = {
     .setDescription("Rolls a 6-sided die."),
   async execute(interaction) {
     const randomDiceNumber = Math.floor(Math.random() * 6) + 1;
+    const user = userMention(interaction.user.id);
 
-    await interaction.reply(
-      `User ${interaction.user.username} rolled a ${randomDiceNumber}!`
-    );
+    await interaction.reply(`${user} rolled a ${randomDiceNumber}!`);
   },
 };

@@ -1,4 +1,4 @@
-const { SlashCommandBuilder } = require("discord.js");
+const { SlashCommandBuilder, userMention } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -7,9 +7,10 @@ module.exports = {
   async execute(interaction) {
     const randomNumber = Math.random();
     const faceCoin = randomNumber < 0.5 ? "heads" : "tails";
+    const user = userMention(interaction.user.id);
 
     await interaction.reply(
-      `User ${interaction.user.username} flips a coin, and it lands ${faceCoin} up!`
+      `${user} flips a coin, and it lands ${faceCoin} up!`
     );
   },
 };

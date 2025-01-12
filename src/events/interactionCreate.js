@@ -1,4 +1,4 @@
-const { Events, MessageFlags } = require("discord.js");
+const { Events, MessageFlags, Collection } = require("discord.js");
 
 module.exports = {
   name: Events.InteractionCreate,
@@ -15,6 +15,38 @@ module.exports = {
       );
       return;
     }
+
+    // Get the cooldowns from the client's cooldowns collection
+    const cooldowns = interaction.client.cooldowns;
+
+    // If cooldown has not been saved to the collection, append it
+    if (!cooldowns.has(command.data.name)) {
+      cooldowns.set(command.data.name, new Collection());
+    }
+
+    // Get timestamp and cooldown duration
+    const now = Date.now();
+    const timestamps = cooldowns.get(command.data.name);
+    const defaultCooldownDuration = 3;
+    const cooldownAmount =
+      (command.cooldown ?? defaultCooldownDuration) * 1_000;
+
+    // Check if user is in cooldown
+    if (timestamps.has(interaction.user.id)) {
+      const expirationTime =
+        timestamps.get(interaction.user.id) + cooldownAmount;
+
+      if (now < expirationTime) {
+        return interaction.reply({
+          content: `Please wait, you are on a cooldown for \`${command.data.name}\` command.`,
+          flags: MessageFlags.Ephemeral,
+        });
+      }
+    }
+
+    // Update cooldown timestamp
+    timestamps.set(interaction.user.id, now);
+    setTimeout(() => timestamps.delete(interaction.user.id), cooldownAmount);
 
     // Call the comand's execute() method. In case something goes wrong, catch the exception and log it to the console
     try {
